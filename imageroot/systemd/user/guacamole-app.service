@@ -22,8 +22,7 @@ ExecStart=/usr/bin/podman run --conmon-pidfile %t/guacamole-app.pid \
     --cidfile %t/guacamole-app.ctr-id --cgroups=no-conmon \
     --pod-id-file %t/guacamole.pod-id --replace -d --name  guacamole-app \
     --volume guacamole-app:/var/www/html/:Z \
-    --volume ./config:/tmp:Z \
-    --link guacd-app:guacd \   
+    --volume ./config:/tmp:Z \  
     --env GUACD_HOSTNAME=guacd-app \
     --env GUACD_PORT=4822 \
     --env MYSQL_HOSTNAME=mariadb-app \
