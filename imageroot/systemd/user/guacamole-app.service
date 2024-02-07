@@ -24,7 +24,7 @@ ExecStart=/usr/bin/podman run --conmon-pidfile %t/guacamole-app.pid \
     --env POSTGRESQL_USER=guacamole \
     --env POSTGRESQL_PASSWORD=guacamole \
     --env POSTGRESQL_DATABASE=guacamole \
-    --env POSTGRESQL_HOSTNAME=127.0.0.1 \    
+    --env POSTGRESQL_HOSTNAME=127.0.0.1 \
     --env GUACD_HOSTNAME=127.0.0.1 \
     --env REMOTE_IP_VALVE_ENABLED=true \
     ${GUACAMOLE_IMAGE}
