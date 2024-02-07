@@ -4,9 +4,9 @@
 #
 
 [Unit]
-Description=Podman  guacamole-app.service
+Description=Podman guacd-app.service
 BindsTo=guacamole.service
-After=guacamole.service mariadb-app.service guacd-app.service
+After=guacamole.service mariadb-app.service
 
 [Service]
 Environment=PODMAN_SYSTEMD_UNIT=%n
@@ -20,17 +20,8 @@ ExecStartPre=/bin/rm -f %t/guacamole-app.pid %t/guacamole-app.ctr-id
 ExecStartPre=-runagent discover-smarthost
 ExecStart=/usr/bin/podman run --conmon-pidfile %t/guacamole-app.pid \
     --cidfile %t/guacamole-app.ctr-id --cgroups=no-conmon \
-    --pod-id-file %t/guacamole.pod-id --replace -d --name  guacamole-app \
-    --volume guacamole-app:/var/www/html/:Z \
-    --volume ./config:/tmp:Z \
-    --link guacd-app:guacd    
-    --env MARIADB_DB_TYPE=mysql \
-    --env MARIADB_DB_HOST=127.0.0.1 \
-    --env MARIADB_DB_PORT=3306 \
-    --env MARIADB_DB_USER=guacamole \
-    --env MARIADB_DB_PASSWORD=guacamole \
-    --env MARIADB_DB_NAME=guacamole \
-    ${GUACAMOLE_IMAGE}
+    --pod-id-file %t/guacamole.pod-id --replace -d --name  guacd-app \
+    ${GUACD_IMAGE}
 ExecStop=/usr/bin/podman stop --ignore --cidfile %t/guacamole-app.ctr-id -t 10
 ExecReload=/usr/bin/podman kill -s HUP guacamole-app
 SyslogIdentifier=%u
