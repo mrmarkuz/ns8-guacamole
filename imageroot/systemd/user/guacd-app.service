@@ -20,7 +20,7 @@ ExecStartPre=/bin/rm -f %t/guacd-app.pid %t/guacd-app.ctr-id
 ExecStartPre=-runagent discover-smarthost
 ExecStart=/usr/bin/podman run --conmon-pidfile %t/guacd-app.pid \
     --cidfile %t/guacd-app.ctr-id --cgroups=no-conmon \
-    --pod-id-file %t/guacamole.pod-id --replace -d --name  guacd-app -h guacd \
+    --pod-id-file %t/guacamole.pod-id --replace -d --name  guacd-app \
     ${GUACD_IMAGE}
 ExecStop=/usr/bin/podman stop --ignore --cidfile %t/guacd-app.ctr-id -t 10
 ExecReload=/usr/bin/podman kill -s HUP guacd-app

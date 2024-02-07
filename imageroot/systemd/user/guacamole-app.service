@@ -24,9 +24,8 @@ ExecStart=/usr/bin/podman run --conmon-pidfile %t/guacamole-app.pid \
     --env MYSQL_USER=guacamole \
     --env MYSQL_PASSWORD=guacamole \
     --env MYSQL_DATABASE=guacamole \
-    --env MYSQL_HOSTNAME=mariadb \
-    --env GUACD_HOSTNAME=guacd \
-    --env GUACD_PORT=4822 \
+    --env MYSQL_HOSTNAME=127.0.0.1 \
+    --env GUACD_HOSTNAME=127.0.0.1 \
     --env REMOTE_IP_VALVE_ENABLED=true \
     ${GUACAMOLE_IMAGE}
 ExecStop=/usr/bin/podman stop --ignore --cidfile %t/guacamole-app.ctr-id -t 10
