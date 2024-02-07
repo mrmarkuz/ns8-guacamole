@@ -45,7 +45,7 @@ buildah config --entrypoint=/ \
     --label="org.nethserver.authorizations=traefik@node:routeadm" \
     --label="org.nethserver.tcp-ports-demand=1" \
     --label="org.nethserver.rootfull=0" \
-    --label="org.nethserver.images=docker.io/guacamole/guacamole:latest docker.io/guacamole/guacd:latest" \
+    --label="org.nethserver.images=docker.io/library/postgres:15.5-alpine3.19 docker.io/guacamole/guacamole:latest docker.io/guacamole/guacd:latest" \
     "${container}"
 
 # Commit the image
@@ -64,19 +64,6 @@ images+=("${repobase}/${reponame}")
 # 3. append the image url to the images array
 #
 
-
-# Define postgresql-app container
-container=$(buildah from docker.io/library/postgres:15.5-alpine3.19)
-
-buildah add ${container} ${PWD}/postgres/data /docker-entrypoint-initdb.d/data
-buildah add ${container} ${PWD}/postgres/guacamole-init.sh /docker-entrypoint-initdb.d/
-buildah run ${container} chmod 755 /docker-entrypoint-initdb.d
-
-# Commit the image
-buildah commit --rm "${container}" "${repobase}/${reponame}"
-
-# Append the image URL to the images array
-images+=("${repobase}/${reponame}")
 
 #
 # Setup CI when pushing to Github. 
