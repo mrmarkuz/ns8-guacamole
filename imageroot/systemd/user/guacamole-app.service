@@ -24,7 +24,6 @@ ExecStart=/usr/bin/podman run --conmon-pidfile %t/guacamole-app.pid \
     --volume guacamole-app:/var/www/html/:Z \
     --volume ./config:/tmp:Z \
     --link guacd-app:guacd \   
-    --link mariadb-app:mysql \
     --env GUACD_HOSTNAME=guacd-app \
     --env GUACD_PORT=4822 \
     --env MYSQL_HOSTNAME=mariadb-app \
