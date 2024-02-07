@@ -65,8 +65,8 @@ images+=("${repobase}/${reponame}")
 #
 
 
-# Define postgres container
-reponame="postgres-app"
+# Define postgresql-app container
+reponame="postgresql-app"
 container=$(buildah from docker.io/library/postgres:15.5-alpine3.19)
 
 buildah add ${container} ${PWD}/postgres/data /docker-entrypoint-initdb.d/data
