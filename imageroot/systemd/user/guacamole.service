@@ -10,8 +10,8 @@
 
 [Unit]
 Description=Podman guacamole.service
-Requires=mariadb-app.service guacd-app.service guacamole-app.service
-Before=mariadb-app.service guacd-app.service guacamole-app.service
+Requires=postgresql-app.service guacd-app.service guacamole-app.service
+Before=postgresql-app.service guacd-app.service guacamole-app.service
 
 [Service]
 Environment=PODMAN_SYSTEMD_UNIT=%n

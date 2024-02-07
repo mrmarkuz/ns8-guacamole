@@ -6,7 +6,7 @@
 [Unit]
 Description=Podman  guacamole-app.service
 BindsTo=guacamole.service
-After=guacamole.service mariadb-app.service guacd-app.service
+After=guacamole.service postgresql-app.service guacd-app.service
 
 [Service]
 Environment=PODMAN_SYSTEMD_UNIT=%n
@@ -21,11 +21,10 @@ ExecStartPre=-runagent discover-smarthost
 ExecStart=/usr/bin/podman run --conmon-pidfile %t/guacamole-app.pid \
     --cidfile %t/guacamole-app.ctr-id --cgroups=no-conmon \
     --pod-id-file %t/guacamole.pod-id --replace -d --name  guacamole-app \
-    --env MYSQL_USER=guacamole \
-    --env MYSQL_PASSWORD=guacamole \
-    --env MYSQL_DATABASE=guacamole \
-    --env MYSQL_HOSTNAME=127.0.0.1 \
-    --env MYSQL_AUTO_CREATE_ACCOUNTS=true \
+    --env POSTGRESQL_USER=guacamole \
+    --env POSTGRESQL_PASSWORD=guacamole \
+    --env POSTGRESQL_DATABASE=guacamole \
+    --env POSTGRESQL_HOSTNAME=127.0.0.1 \    
     --env GUACD_HOSTNAME=127.0.0.1 \
     --env REMOTE_IP_VALVE_ENABLED=true \
     ${GUACAMOLE_IMAGE}

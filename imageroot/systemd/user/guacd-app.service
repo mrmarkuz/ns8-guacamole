@@ -6,7 +6,7 @@
 [Unit]
 Description=Podman guacd-app.service
 BindsTo=guacamole.service
-After=guacamole.service mariadb-app.service
+After=guacamole.service postgresql-app.service
 
 [Service]
 Environment=PODMAN_SYSTEMD_UNIT=%n
