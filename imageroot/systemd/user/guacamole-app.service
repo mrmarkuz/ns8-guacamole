@@ -23,13 +23,15 @@ ExecStart=/usr/bin/podman run --conmon-pidfile %t/guacamole-app.pid \
     --pod-id-file %t/guacamole.pod-id --replace -d --name  guacamole-app \
     --volume guacamole-app:/var/www/html/:Z \
     --volume ./config:/tmp:Z \
-    --link guacd-app:guacd    
-    --env MARIADB_DB_TYPE=mysql \
-    --env MARIADB_DB_HOST=127.0.0.1 \
-    --env MARIADB_DB_PORT=3306 \
-    --env MARIADB_DB_USER=guacamole \
-    --env MARIADB_DB_PASSWORD=guacamole \
-    --env MARIADB_DB_NAME=guacamole \
+    --link guacd-app:guacd \   
+    --link mariadb-app:mariadb \
+    --env GUACD_HOSTNAME=guacd-app \
+    --env GUACD_PORT=4822 \
+    --env MYSQL_HOSTNAME=mariadb-app \
+    --env MYSQL_PORT=3306 \
+    --env MYSQL_USER=guacamole \
+    --env MYSQL_PASSWORD=guacamole \
+    --env MYSQL_DATABASE=guacamole \
     ${GUACAMOLE_IMAGE}
 ExecStop=/usr/bin/podman stop --ignore --cidfile %t/guacamole-app.ctr-id -t 10
 ExecReload=/usr/bin/podman kill -s HUP guacamole-app
