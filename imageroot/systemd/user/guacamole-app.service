@@ -25,6 +25,7 @@ ExecStart=/usr/bin/podman run --conmon-pidfile %t/guacamole-app.pid \
     --env MYSQL_PASSWORD=guacamole \
     --env MYSQL_DATABASE=guacamole \
     --env MYSQL_HOSTNAME=127.0.0.1 \
+    --env MYSQL_AUTO_CREATE_ACCOUNTS=true \
     --env GUACD_HOSTNAME=127.0.0.1 \
     --env REMOTE_IP_VALVE_ENABLED=true \
     ${GUACAMOLE_IMAGE}

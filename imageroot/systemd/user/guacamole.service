@@ -22,7 +22,7 @@ ExecStartPre=/bin/rm -f %t/guacamole.pid %t/guacamole.pod-id
 ExecStartPre=/usr/bin/podman pod create --infra-conmon-pidfile %t/guacamole.pid \
     --pod-id-file %t/guacamole.pod-id \
     --name guacamole \
-    --publish 127.0.0.1:${TCP_PORT}:80 \
+    --publish 127.0.0.1:${TCP_PORT}:8080 \
     --replace
 ExecStart=/usr/bin/podman pod start --pod-id-file %t/guacamole.pod-id
 ExecStop=/usr/bin/podman pod stop --ignore --pod-id-file %t/guacamole.pod-id -t 10
