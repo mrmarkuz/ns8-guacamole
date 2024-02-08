@@ -248,15 +248,18 @@ export default {
         }
         isValidationOk = false;
       }
+      
+      // Disable to require ldap_domain:
+     
+      // if (!this.ldap_domain) {
+      //  this.error.ldap_domain = this.$t("settings.required");
 
-      if (!this.ldap_domain) {
-        this.error.ldap_domain = this.$t("settings.required");
-
-        if (isValidationOk) {
-          this.focusElement("ldap_domain");
-          isValidationOk = false;
-        }
-      }
+      //  if (isValidationOk) {
+      //    this.focusElement("ldap_domain");
+      //    isValidationOk = false;
+      //  }
+      // }
+    
 
       return isValidationOk;
     },
