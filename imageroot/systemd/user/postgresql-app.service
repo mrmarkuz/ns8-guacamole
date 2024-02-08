@@ -16,7 +16,8 @@ Restart=always
 TimeoutStopSec=70
 ExecStartPre=/bin/rm -f %t/postgresql-app.pid %t/postgresql-app.ctr-id
 ExecStartPre=/bin/mkdir -p %S/state/restore/
-ExecStartPre=/usr/bin/podman run --rm guacamole/guacamole /opt/guacamole/bin/initdb.sh --postgresql > %S/state/restore/initdb.sql
+#ExecStartPre=/usr/bin/podman run --rm guacamole/guacamole /opt/guacamole/bin/initdb.sh --postgresql>%S/state/restore/initdb.sql
+ExecStartPre=/bin/sh -c '/usr/bin/podman run --rm guacamole/guacamole /opt/guacamole/bin/initdb.sh --postgresql>%S/state/restore/initdb.sql'
 ExecStart=/usr/bin/podman run --conmon-pidfile %t/postgresql-app.pid \
     --cidfile %t/postgresql-app.ctr-id --cgroups=no-conmon \
     --pod-id-file %t/guacamole.pod-id --replace -d --name postgresql-app \
