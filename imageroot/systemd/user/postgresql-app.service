@@ -16,7 +16,8 @@ Restart=always
 TimeoutStopSec=70
 ExecStartPre=/bin/rm -f %t/postgresql-app.pid %t/postgresql-app.ctr-id
 ExecStartPre=/bin/mkdir -p %S/state/restore/
-#ExecStartPre=/usr/bin/podman run --rm guacamole/guacamole /opt/guacamole/bin/initdb.sh --postgresql>%S/state/restore/initdb.sql
+# The database init script is created by guacamole container and dropped to restore to initialise the db
+# Use /bin/sh -c if redirect output is needed 
 ExecStartPre=/bin/sh -c '/usr/bin/podman run --rm guacamole/guacamole /opt/guacamole/bin/initdb.sh --postgresql>%S/state/restore/initdb.sql'
 ExecStart=/usr/bin/podman run --conmon-pidfile %t/postgresql-app.pid \
     --cidfile %t/postgresql-app.ctr-id --cgroups=no-conmon \
@@ -30,8 +31,6 @@ ExecStart=/usr/bin/podman run --conmon-pidfile %t/postgresql-app.pid \
     --env TZ=UTC \
     ${POSTGRES_IMAGE}
 ExecStartPost=/usr/bin/bash -c "while ! podman  exec postgresql-app psql -U postgres -d guacamole ;  do sleep 5 ; done"
-#ExecStartPost=/usr/bin/podman run --rm guacamole/guacamole /opt/guacamole/bin/initdb.sh --postgresql > initdb.sql
-#ExecStartPost=/usr/bin/podman exec postgresql-app psql -U postgres -d guacamole -f - < initdb.sql
 ExecStop=/usr/bin/podman stop --ignore --cidfile %t/postgresql-app.ctr-id -t 10
 ExecStopPost=/usr/bin/podman rm --ignore -f --cidfile %t/postgresql-app.ctr-id
 ExecReload=/usr/bin/podman kill -s HUP postgresql-app
