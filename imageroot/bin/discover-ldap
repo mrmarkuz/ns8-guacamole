@@ -15,7 +15,7 @@ import json
 import agent
 from agent.ldapproxy import Ldapproxy
 
-udomname = os.environ.get('EJABBERD_LDAP_DOMAIN','')
+udomname = os.environ.get('LDAP_USER_BASE_DN','')
 
 try:
     odom = Ldapproxy().get_domain(udomname)
