@@ -7,15 +7,5 @@
 
 set -e
 
-if ! systemctl --user -q is-active guacamole.service; then
-    exit 0
-fi
-
-podman exec mariadb-app mysqldump \
-        --databases guacamole \
-        --default-character-set=utf8mb4 \
-        --skip-dump-date \
-        --ignore-table=mysql.event \
-        --single-transaction \
-        --quick \
-        --add-drop-table  > guacamole.sql
+echo "Dumping guacamole postgres database"
+podman exec postgresql-app pg_dump -U postgres --format=c  guacamole > guacamole.pg_dump
