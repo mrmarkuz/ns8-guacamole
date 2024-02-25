@@ -21,6 +21,7 @@ config = {}
 config["host"] = os.getenv("TRAEFIK_HOST","")
 config["http2https"] = os.getenv("TRAEFIK_HTTP2HTTPS") == "True"
 config["lets_encrypt"] = os.getenv("TRAEFIK_LETS_ENCRYPT") == "True"
+config["ldap_domain"] = os.getenv("LDAP_USER_BASE_DN")
 
 # Dump the configuration to stdout
 json.dump(config, fp=sys.stdout)
