@@ -15,19 +15,19 @@ EnvironmentFile=-%S/state/smarthost.env
 WorkingDirectory=%S/state
 Restart=always
 TimeoutStopSec=70
-ExecStartPre=/bin/mkdir -p config
 ExecStartPre=/bin/rm -f %t/guacamole-app.pid %t/guacamole-app.ctr-id
 ExecStartPre=-runagent discover-smarthost
 ExecStart=/usr/bin/podman run --conmon-pidfile %t/guacamole-app.pid \
     --cidfile %t/guacamole-app.ctr-id --cgroups=no-conmon \
     --pod-id-file %t/guacamole.pod-id --replace -d --name  guacamole-app \
+    --env-file=%S/state/environment \
+    --volume guacamole-data:/home/guacamole:Z \
     --env POSTGRESQL_USER=postgres \
     --env POSTGRESQL_PASSWORD=guacamole \
     --env POSTGRESQL_DATABASE=guacamole \
     --env POSTGRESQL_HOSTNAME=127.0.0.1 \
     --env GUACD_HOSTNAME=127.0.0.1 \
     --env REMOTE_IP_VALVE_ENABLED=true \
-    --env LDAP_USER_BASE_DN=${LDAP_USER_BASE_DN} \
     ${GUACAMOLE_IMAGE}
 ExecStop=/usr/bin/podman stop --ignore --cidfile %t/guacamole-app.ctr-id -t 10
 ExecReload=/usr/bin/podman kill -s HUP guacamole-app
