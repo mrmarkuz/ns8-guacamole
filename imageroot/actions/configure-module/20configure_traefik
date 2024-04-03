@@ -28,11 +28,11 @@ ldap_domain = data.get("ldap_domain", "")
 agent.set_env("TRAEFIK_HOST", host)
 agent.set_env("TRAEFIK_HTTP2HTTPS", h2hs)
 agent.set_env("TRAEFIK_LETS_ENCRYPT", le)
-agent.set_env("LDAP_USER_BASE_DN",ldap_domain)
+agent.set_env("LDAP_DOMAIN",ldap_domain)
 
 # Set LDAP domain
 
-agent.set_env("LDAP_USER_BASE_DN", ldap_domain)
+agent.set_env("LDAP_DOMAIN", ldap_domain)
 if ldap_domain:
     agent.bind_user_domains([ldap_domain])
 
