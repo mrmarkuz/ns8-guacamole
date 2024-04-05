@@ -48,7 +48,7 @@ if ldap_domain:
 
     if odom['schema'] == "rfc2307":
         # OpenLDAP specific:
-        agent.set_env("LDAP_USER_BASE_DN","cn=People,"+base_dn)
+        agent.set_env("LDAP_USER_BASE_DN","ou=People,"+base_dn)
         agent.set_env("LDAP_MEMBER_ATTRIBUTE","memberUid")
         agent.set_env("LDAP_MEMBER_ATTRIBUTE_TYPE","uid")
         agent.set_env("LDAP_GROUP_BASE_DN","ou=Groups,"+odom['base_dn'])
