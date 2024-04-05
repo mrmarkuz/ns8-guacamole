@@ -29,6 +29,7 @@ ExecStart=/usr/bin/podman run --conmon-pidfile %t/guacamole-app.pid \
     --env GUACD_HOSTNAME=127.0.0.1 \
     --env REMOTE_IP_VALVE_ENABLED=true \
     ${GUACAMOLE_IMAGE}
+ExecStartPost=/usr/bin/podman cp %S/branding/branding.jar guacamole-app:/home/guacamole/.guacamole/extensions/
 ExecStartPost=/usr/bin/podman exec guacamole-app bash -c "mv ~/tomcat/webapps/guacamole.war ~/tomcat/webapps/ROOT.war"
 ExecStop=/usr/bin/podman stop --ignore --cidfile %t/guacamole-app.ctr-id -t 10
 ExecReload=/usr/bin/podman kill -s HUP guacamole-app
