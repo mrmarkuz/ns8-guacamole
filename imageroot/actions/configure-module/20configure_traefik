@@ -33,44 +33,39 @@ agent.set_env("TRAEFIK_LETS_ENCRYPT", le)
 # Set LDAP domain
 
 agent.set_env("LDAP_DOMAIN",ldap_domain)
+
 if ldap_domain:
     agent.bind_user_domains([ldap_domain])
 
-# Get LDAP properties
-udomname = os.environ.get('LDAP_DOMAIN','')
+    # Get LDAP properties
+    odom = Ldapproxy().get_domain(ldap_domain)
+    base_dn = odom['base_dn']
 
-odom = Ldapproxy().get_domain(udomname)
+    agent.set_env("LDAP_HOSTNAME","10.0.2.2")
+    agent.set_env("LDAP_PORT",odom['port'])
+    agent.set_env("LDAP_SEARCH_BIND_DN",odom['bind_dn'])
+    agent.set_env("LDAP_SEARCH_BIND_PASSWORD",odom['bind_password'])
 
-base_dn = odom['base_dn']
+    if odom['schema'] == "rfc2307":
+        # OpenLDAP specific:
+        agent.set_env("LDAP_USER_BASE_DN","cn=People,"+base_dn)
+        agent.set_env("LDAP_MEMBER_ATTRIBUTE","memberUid")
+        agent.set_env("LDAP_MEMBER_ATTRIBUTE_TYPE","uid")
+        agent.set_env("LDAP_GROUP_BASE_DN","ou=Groups,"+odom['base_dn'])
+        agent.set_env("LDAP_USERNAME_ATTRIBUTE","")
+        agent.set_env("LDAP_USER_SEARCH_FILTER","")
 
-agent.set_env("LDAP_HOSTNAME","10.0.2.2")
-agent.set_env("LDAP_PORT",odom['port'])
-agent.set_env("LDAP_SEARCH_BIND_DN",odom['bind_dn'])
-agent.set_env("LDAP_SEARCH_BIND_PASSWORD",odom['bind_password'])
-
-if odom['schema'] == "rfc2307":
-    # OpenLDAP specific:
-    agent.set_env("LDAP_USER_BASE_DN","cn=People,"+base_dn)
-    agent.set_env("LDAP_MEMBER_ATTRIBUTE","memberUid")
-    agent.set_env("LDAP_MEMBER_ATTRIBUTE_TYPE","uid")
-    agent.set_env("LDAP_GROUP_BASE_DN","ou=Groups,"+odom['base_dn'])
-
-if odom['schema'] == "ad":
-    # Samba AD specific:
-    agent.set_env("LDAP_USER_BASE_DN","cn=Users,"+base_dn)
-    agent.set_env("LDAP_MEMBER_ATTRIBUTE","")
-    agent.set_env("LDAP_MEMBER_ATTRIBUTE_TYPE","")
-    agent.set_env("LDAP_GROUP_BASE_DN","cn=Users,"+odom['base_dn'])
-    agent.set_env("LDAP_USERNAME_ATTRIBUTE","samaccountname")
-    agent.set_env("LDAP_USER_SEARCH_FILTER","(&(objectClass=top)(objectClass=user)(objectClass=person)(objectClass=organizationalPerson))")
-
-#print('GUACAMOLE_LDAP_PORT=' + str(odom['port']), file=denv)
-#    print('GUACAMOLE_LDAP_USER=' + odom['bind_dn'], file=denv)
-#    print('GUACAMOLE_LDAP_HOST=' + odom['host'], file=denv)
-#    print('GUACAMOLE_LDAP_PASS=' + odom['bind_password'], file=denv)
-#    print('GUACAMOLE_LDAP_SCHEMA=' + odom['schema'], file=denv)
-#    print('GUACAMOLE_LDAP_BASE=' + odom['base_dn'], file=denv)
-
+    if odom['schema'] == "ad":
+        # Samba AD specific:
+        agent.set_env("LDAP_USER_BASE_DN","cn=Users,"+base_dn)
+        agent.set_env("LDAP_MEMBER_ATTRIBUTE","")
+        agent.set_env("LDAP_MEMBER_ATTRIBUTE_TYPE","")
+        agent.set_env("LDAP_GROUP_BASE_DN","cn=Users,"+odom['base_dn'])
+        agent.set_env("LDAP_USERNAME_ATTRIBUTE","samaccountname")
+        agent.set_env("LDAP_USER_SEARCH_FILTER","(&(objectClass=top)(objectClass=user)(objectClass=person)(objectClass=organizationalPerson))")
+else:
+    agent.set_env("LDAP_USER_BASE_DN","")
+    agent.bind_user_domains([])
 
 # Make sure everything is saved inside the environment file
 # just before starting systemd unit
