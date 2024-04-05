@@ -64,6 +64,7 @@
                         
               <!-- LDAP domain -->
             <NsComboBox
+              v-if="already_set"
               v-model.trim="ldap_domain"
               :autoFilter="true"
               :autoHighlight="true"
