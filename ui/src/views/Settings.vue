@@ -63,8 +63,7 @@
             </cv-toggle>
                         
               <!-- LDAP domain -->
-            <NsComboBox
-              v-if="already_set"
+            <NsComboBox              
               v-model.trim="ldap_domain"
               :autoFilter="true"
               :autoHighlight="true"
