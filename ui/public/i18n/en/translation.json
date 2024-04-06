@@ -33,10 +33,10 @@
     "disabled": "Disabled",
     "advanced": "Advanced",
     "configuring": "Configuring",
-    "instance_configuration": "Configure guacamole",
+    "instance_configuration": "Configure Guacamole",
     "domain_already_used_in_traefik": "Domain already used in traefik",
-    "choose_the_ldap_domain_to_use": "Choose the LDAP domain to use for Guacamole",
-    "choose_ldap_domain": "Choose LDAP/AD Domain"
+    "choose_the_ldap_domain_to_use": "Choose the optional LDAP domain to use for Guacamole",
+    "choose_ldap_domain": "Choose LDAP/AD Domain or leave empty"
   },
   "about": {
     "title": "About"

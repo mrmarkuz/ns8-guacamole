@@ -28,8 +28,8 @@
         "configuring": "Konfiguriere",
         "instance_configuration": "Konfiguriere Guacamole",
         "domain_already_used_in_traefik": "Domäne wird bereits in Traefik verwendet",
-        "choose_the_ldap_domain_to_use": "LDAP/AD Domäne für Guacamole auswählen",
-        "choose_ldap_domain": "LDAP/AD Domäne wählen"
+        "choose_the_ldap_domain_to_use": "Optionale LDAP/AD Domäne für Guacamole auswählen",
+        "choose_ldap_domain": "LDAP/AD Domäne wählen oder leer lassen"
     },
     "common": {
         "required": "erforderlich",
