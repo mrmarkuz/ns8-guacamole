@@ -11,11 +11,23 @@
         "network_error": "Netzwerkfehler",
         "validation_error": "Fehlerhafte Prüfung"
     },
-    "settings": {
-        "test_field": "Testfeld",
+    "settings": {        
         "configure_instance": "{instance} konfigurieren",
         "save": "Speichern",
-        "title": "Einstellungen"
+        "title": "Einstellungen",
+        "ldap_domain": "LDAP/AD Domäne",
+        "title": "Settings",
+        "configure_instance": "Configure {instance}",
+        "save": "Speichern",
+        "guacamole_fqdn": "Guacamole Hostname (FQDN)",
+        "lets_encrypt": "LE Zertifikat anfordern",
+        "http_to_https": "HTTPS erzwingen",      
+        "enabled": "Aktiv",
+        "disabled": "Inaktiv",
+        "advanced": "Erweitert",
+        "configuring": "Konfiguriere",
+        "instance_configuration": "Konfiguriere Guacamole",
+        "domain_already_used_in_traefik": "Domäne wird bereits in Traefik verwendet"
     },
     "common": {
         "required": "erforderlich",

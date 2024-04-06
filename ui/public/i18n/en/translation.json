@@ -21,12 +21,14 @@
     "no_volumes": "No volumes"
   },
   "settings": {
+    "test_field": "Testfield",
     "title": "Settings",
     "configure_instance": "Configure {instance}",
     "save": "Save",
-    "guacamole_fqdn": "guacamole hostname (FQDN)",
+    "guacamole_fqdn": "Guacamole Hostname (FQDN)",
     "lets_encrypt": "Request LE Certificate",
     "http_to_https": "Force HTTPS",
+    "ldap_domain": "LDAP/AD Domain",
     "enabled": "Enabled",
     "disabled": "Disabled",
     "advanced": "Advanced",
