@@ -327,6 +327,7 @@ export default {
       backupRepositories: [],
       backups: [],
       loading: {
+        getConfiguration: true,
         getStatus: false,
         listBackupRepositories: false,
         listBackups: false,
@@ -379,6 +380,7 @@ export default {
     clearTimeout(this.redirectTimeout);
   },
   created() {
+    this.getConfiguration
     this.getStatus();
     this.listBackupRepositories();
   },
@@ -475,7 +477,7 @@ export default {
       this.status = taskResult.output;
       this.loading.status = false;
     },
-    
+
     async listBackupRepositories() {
       this.loading.listBackupRepositories = true;
       this.error.listBackupRepositories = "";
