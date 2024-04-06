@@ -422,6 +422,18 @@ export default {
         return;
       }
     },
+
+    getConfigurationAborted(taskResult, taskContext) {
+      console.error(`${taskContext.action} aborted`, taskResult);
+      this.error.getConfiguration = this.core.$t("error.generic_error");
+      this.loading.getConfiguration = false;
+    },
+    getConfigurationCompleted(taskContext, taskResult) {
+      const config = taskResult.output;
+      this.host = config.host;
+      this.loading.getConfiguration = false;
+    },
+
     async getStatus() {
       this.loading.getStatus = true;
       this.error.getStatus = "";
@@ -459,16 +471,11 @@ export default {
         return;
       }
     },
-
-    getStatusAborted(taskResult, taskContext) {
-      console.error(`${taskContext.action} aborted`, taskResult);
-      this.error.getStatus = this.$t("error.generic_error");
-      this.loading.getStatus = false;
-    },
     getStatusCompleted(taskContext, taskResult) {
       this.status = taskResult.output;
       this.loading.status = false;
     },
+    
     async listBackupRepositories() {
       this.loading.listBackupRepositories = true;
       this.error.listBackupRepositories = "";
