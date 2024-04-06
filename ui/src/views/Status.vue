@@ -294,8 +294,7 @@ import {
   QueryParamService,
   TaskService,
   IconService,
-  UtilService,
-  PageTitleService,
+  UtilService,  
 } from "@nethserver/ns8-ui-lib";
 
 export default {
@@ -447,7 +446,6 @@ export default {
           extra: {
             title: this.$t("action." + taskAction),
             isNotificationHidden: true,
-            eventId,
           },
         })
       );
@@ -468,18 +466,11 @@ export default {
     async listBackupRepositories() {
       this.loading.listBackupRepositories = true;
       this.error.listBackupRepositories = "";
-      const taskAction = "list-backup-repositories";
-      const eventId = this.getUuid();
-
-      // register to task error
-      this.core.$root.$once(
-        `${taskAction}-aborted-${eventId}`,
-        this.listBackupRepositoriesAborted
-      );
+      const taskAction = "list-backup-repositories";      
 
       // register to task completion
       this.core.$root.$once(
-        `${taskAction}-completed-${eventId}`,
+        taskAction + "-completed",
         this.listBackupRepositoriesCompleted
       );
 
@@ -489,7 +480,6 @@ export default {
           extra: {
             title: this.$t("action." + taskAction),
             isNotificationHidden: true,
-            eventId,
           },
         })
       );
@@ -518,18 +508,11 @@ export default {
     async listBackups() {
       this.loading.listBackups = true;
       this.error.listBackups = "";
-      const taskAction = "list-backups";
-      const eventId = this.getUuid();
-
-      // register to task error
-      this.core.$root.$once(
-        `${taskAction}-aborted-${eventId}`,
-        this.listBackupsAborted
-      );
+      const taskAction = "list-backups";      
 
       // register to task completion
       this.core.$root.$once(
-        `${taskAction}-completed-${eventId}`,
+        taskAction + "-completed",
         this.listBackupsCompleted
       );
 
@@ -538,8 +521,7 @@ export default {
           action: taskAction,
           extra: {
             title: this.$t("action." + taskAction),
-            isNotificationHidden: true,
-            eventId,
+            isNotificationHidden: true,            
           },
         })
       );
