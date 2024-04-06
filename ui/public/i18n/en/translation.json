@@ -18,7 +18,10 @@
     "mount": "Mount",
     "no_services": "No services",
     "no_images": "No images",
-    "no_volumes": "No volumes"
+    "no_volumes": "No volumes",
+    "guacamole_webapp":"Guacamole Web Remote Desktop",
+    "not_configured":"Guacamole is not configured",
+    "configure":"Configure Guacamole"
   },
   "settings": {
     "test_field": "Testfield",

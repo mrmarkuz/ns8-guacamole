@@ -4,7 +4,7 @@
     "en": "Guacamole is a clientless remote desktop gateway",
     "de": "Guacamole ist ein webbasierter Remote Desktop Gateway"
   },
-  "categories": ["system administration"],
+  "categories": ["system_administration"],
   "authors": [
     {
       "name": "Markus Neuberger",

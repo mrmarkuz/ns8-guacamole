@@ -386,6 +386,42 @@ export default {
     goToWebapp() {
       window.open(`https://${this.host}`, "_blank");
     },
+    async getConfiguration() {
+      this.loading.getConfiguration = true;
+      this.error.getConfiguration = "";
+      const taskAction = "get-configuration";
+
+      // register to task error
+      this.core.$root.$off(taskAction + "-aborted");
+      this.core.$root.$once(
+        taskAction + "-aborted",
+        this.getConfigurationAborted
+      );
+            // register to task completion
+            this.core.$root.$off(taskAction + "-completed");
+      this.core.$root.$once(
+        taskAction + "-completed",
+        this.getConfigurationCompleted
+      );
+
+      const res = await to(
+        this.createModuleTaskForApp(this.instanceName, {
+          action: taskAction,
+          extra: {
+            title: this.$t("action." + taskAction),
+            isNotificationHidden: true,
+          },
+        })
+      );
+      const err = res[0];
+
+      if (err) {
+        console.error(`error creating task ${taskAction}`, err);
+        this.error.getConfiguration = this.getErrorMessage(err);
+        this.loading.getConfiguration = false;
+        return;
+      }
+    },
     async getStatus() {
       this.loading.getStatus = true;
       this.error.getStatus = "";

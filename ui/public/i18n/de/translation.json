@@ -50,7 +50,10 @@
         "title": "Status",
         "installation_node": "Knoten der Installation",
         "node": "Knoten",
-        "no_volumes": "keine Volumen"
+        "no_volumes": "keine Volumen",
+        "guacamole_webapp":"Guacamole Web Remote Desktop",
+        "not_configured":"Guacamole ist nicht konfiguriert",
+        "configure":"Guacamole konfigurieren"
     },
     "about": {
         "title": "Über"
