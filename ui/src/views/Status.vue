@@ -459,6 +459,7 @@ export default {
         return;
       }
     },
+
     getStatusAborted(taskResult, taskContext) {
       console.error(`${taskContext.action} aborted`, taskResult);
       this.error.getStatus = this.$t("error.generic_error");
@@ -466,7 +467,7 @@ export default {
     },
     getStatusCompleted(taskContext, taskResult) {
       this.status = taskResult.output;
-      this.loading.getStatus = false;
+      this.loading.status = false;
     },
     async listBackupRepositories() {
       this.loading.listBackupRepositories = true;
