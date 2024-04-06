@@ -228,7 +228,7 @@ export default {
       this.isLetsEncryptEnabled = config.lets_encrypt;
       this.isHttpToHttpsEnabled = config.http2https;
       this.domains_list = config.domains_list;
-      this.ldap_domain = config.ldap_domain;
+      // this.ldap_domain = config.ldap_domain;
       // force to reload value after dom update
       this.$nextTick(() => {
         this.ldap_domain = config.ldap_domain;

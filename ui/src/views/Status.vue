@@ -19,6 +19,42 @@
         />
       </cv-column>
     </cv-row>
+      <cv-column class="guacamole-webapp">
+        <NsInfoCard
+          light
+          :title="$t('status.guacamole_webapp')"
+          :description="
+           this.host ? this.host : $t('status.not_configured')
+          "
+          :icon="Wikis32"
+          :loading="loading.getConfiguration"
+          :isErrorShown="error.getConfiguration"
+          :errorTitle="$t('error.cannot_retrieve_configuration')"
+          :errorDescription="error.getConfiguration"
+          class="min-height-card"
+        >
+          <template slot="content">
+            <NsButton
+              v-if="this.host"
+              kind="ghost"
+              :icon="Launch20"
+              :disabled="loading.getConfiguration"
+              @click="goToWebapp"
+            >
+              {{ $t("status.open_webapp") }}
+            </NsButton>
+            <NsButton
+              v-else
+              kind="ghost"
+              :disabled="loading.getConfiguration"
+              :icon="ArrowRight20"
+              @click="goToAppPage(instanceName, 'settings')"
+            >
+              {{ $t("status.configure") }}
+            </NsButton>
+          </template>
+        </NsInfoCard>
+      </cv-column>
     <cv-row v-if="error.listBackupRepositories">
       <cv-column>
         <NsInlineNotification
@@ -347,6 +383,9 @@ export default {
     this.listBackupRepositories();
   },
   methods: {
+    goToWebapp() {
+      window.open(`https://${this.host}`, "_blank");
+    },
     async getStatus() {
       this.loading.getStatus = true;
       this.error.getStatus = "";
