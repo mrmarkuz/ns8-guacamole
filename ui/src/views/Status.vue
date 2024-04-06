@@ -304,8 +304,7 @@ export default {
     TaskService,
     QueryParamService,
     IconService,
-    UtilService,
-    PageTitleService,
+    UtilService,    
   ],
   pageTitle() {
     return this.$t("status.title") + " - " + this.appName;
@@ -333,9 +332,7 @@ export default {
         listBackups: true,
       },
       error: {
-        getStatus: "",
-        listBackupRepositories: "",
-        listBackups: "",
+        getStatus: "",                
       },
     };
   },
@@ -440,20 +437,10 @@ export default {
       this.loading.getStatus = true;
       this.error.getStatus = "";
       const taskAction = "get-status";
-      const eventId = this.getUuid();
-
-      // register to task error
-      this.core.$root.$once(
-        `${taskAction}-aborted-${eventId}`,
-        this.getStatusAborted
-      );
-
+      
       // register to task completion
-      this.core.$root.$once(
-        `${taskAction}-completed-${eventId}`,
-        this.getStatusCompleted
-      );
-
+      this.core.$root.$once(taskAction + "-completed", this.getStatusCompleted);
+            
       const res = await to(
         this.createModuleTaskForApp(this.instanceName, {
           action: taskAction,
