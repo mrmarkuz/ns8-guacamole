@@ -82,7 +82,7 @@
           :title="status.instance || '-'"
           :description="$t('status.app_instance')"
           :icon="Application32"
-          :loading="loading.getStatus"
+          :loading="loading.getStatus || loading.getConfiguration"
           class="min-height-card"
         />
       </cv-column>
@@ -93,7 +93,7 @@
           :titleTooltip="installationNodeTitleTooltip"
           :description="$t('status.installation_node')"
           :icon="Chip32"
-          :loading="loading.getStatus"
+          :loading="loading.getStatus || loading.getConfiguration"
           class="min-height-card"
         />
       </cv-column>
@@ -328,9 +328,9 @@ export default {
       backups: [],
       loading: {
         getConfiguration: true,
-        getStatus: false,
-        listBackupRepositories: false,
-        listBackups: false,
+        getStatus: true,
+        listBackupRepositories: true,
+        listBackups: true,
       },
       error: {
         getStatus: "",
@@ -399,8 +399,8 @@ export default {
         taskAction + "-aborted",
         this.getConfigurationAborted
       );
-            // register to task completion
-            this.core.$root.$off(taskAction + "-completed");
+      // register to task completion
+      this.core.$root.$off(taskAction + "-completed");
       this.core.$root.$once(
         taskAction + "-completed",
         this.getConfigurationCompleted
