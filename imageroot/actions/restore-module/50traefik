@@ -10,13 +10,14 @@ import json
 import agent
 import os
 
+
 request = json.load(sys.stdin)
-renv = request['environment']
+#renv = request['environment']
 
 configure_retval = agent.tasks.run(agent_id=os.environ['AGENT_ID'], action='configure-module', data={
-    "lets_encrypt": renv["TRAEFIK_LETS_ENCRYPT"] == "True",
-    "host": renv["TRAEFIK_HOST"],
-    "http2https": renv["TRAEFIK_HTTP2HTTPS"] == "True",
-    "ldap_domain": renv["LDAP_DOMAIN"]
+    "lets_encrypt": os.environ["TRAEFIK_LETS_ENCRYPT"] == "True",
+    "host": os.environ["TRAEFIK_HOST"],
+    "http2https": os.environ["TRAEFIK_HTTP2HTTPS"] == "True",
+    "ldap_domain": os.environ["LDAP_DOMAIN"]
 })
 agent.assert_exp(configure_retval['exit_code'] == 0, "The configure-module subtask failed!")
