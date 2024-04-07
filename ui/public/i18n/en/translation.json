@@ -19,9 +19,10 @@
     "no_services": "No services",
     "no_images": "No images",
     "no_volumes": "No volumes",
-    "guacamole_webapp":"Guacamole Web Remote Desktop",
+    "guacamole_webapp":"Guacamole Remote Gateway",
     "not_configured":"Guacamole is not configured",
-    "configure":"Configure Guacamole"
+    "configure":"Configure Guacamole",
+    "open_webapp":"Open Guacamole"
   },
   "settings": {
     "test_field": "Testfield",
