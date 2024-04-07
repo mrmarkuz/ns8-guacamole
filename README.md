@@ -2,7 +2,7 @@
 
 Apache Guacamole is a web remote desktop gateway.
 
-After installation and configuring a FQDN you can login with guacadmin:guacadmin.
+After installation and configuring a FQDN you can login with user `guacadmin` and password `guacadmin`
 
 ## Install
 
