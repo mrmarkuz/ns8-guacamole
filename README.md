@@ -41,6 +41,10 @@ After editing the file, Guacamole needs to be restarted:
 
     runagent -m guacamole1 systemctl --user restart guacamole
 
+## Crowdsec
+
+Guacamole is secured by crowdsec by default.
+
 ## Uninstall
 
 To uninstall the instance via CLI:
