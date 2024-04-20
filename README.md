@@ -32,6 +32,16 @@ You may login as guacadmin and create a group. Name it "domain admins" when usin
 Give the group full admin permissions.
 This way the Nethserver domain admins can login to Guacamole and are able to manage users/groups.
 
+## TOTP authentication
+
+Add "TOTP_ENABLED=true" to the `environment` file:
+
+    runagent -m guacamole1 bash -c "grep -q TOTP_ENABLED environment || echo TOTP_ENABLED=true >> environment
+
+...and restart the service:
+
+    runagent -m guacamole1 systemctl --user restart guacamole
+
 ## Branding
 
 The branding.jar file can be found in `/home/guacamole1/.config/branding/branding.jar`.
@@ -40,6 +50,12 @@ See https://github.com/Zer0CoolX/guacamole-customize-loginscreen-extension for m
 After editing the file, Guacamole needs to be restarted:
 
     runagent -m guacamole1 systemctl --user restart guacamole
+
+## More extensions
+
+More extensions and environment variables can be found here:
+
+https://guacamole.apache.org/doc/gug/guacamole-docker.html#the-guacamole-docker-image
 
 ## Crowdsec
 
