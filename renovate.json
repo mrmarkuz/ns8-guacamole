@@ -7,9 +7,8 @@
     "**/ui/**",
     "**/.devcontainer/**"
   ],
-  "customManagers": [
-    {
-      "customType": "regex",
+  "regexManagers": [
+    {      
       "fileMatch": [
         "build-images.sh"
       ],
@@ -19,8 +18,7 @@
       "datasourceTemplate": "docker",
       "depNameTemplate": "guacamole/guacamole"
     },
-    {
-      "customType": "regex",
+    {     
       "fileMatch": [
         "build-images.sh"
       ],
@@ -36,7 +34,7 @@
       "matchPackageNames": [
         "postgres"
       ],
-      "allowedVersions": "< 16"
+      "allowedVersions": "<= 15"
     }
   ]
 }
