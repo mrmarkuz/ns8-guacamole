@@ -7,8 +7,9 @@
     "**/ui/**",
     "**/.devcontainer/**"
   ],
-  "regexManagers": [
-    {      
+  "customManagers": [
+    {
+      "customType": "regex",
       "fileMatch": [
         "build-images.sh"
       ],
@@ -18,7 +19,8 @@
       "datasourceTemplate": "docker",
       "depNameTemplate": "guacamole/guacamole"
     },
-    {     
+    {
+      "customType": "regex",
       "fileMatch": [
         "build-images.sh"
       ],
