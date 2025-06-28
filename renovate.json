@@ -25,6 +25,17 @@
         "/build-images.sh/"
       ],
       "matchStrings": [
+        "docker\\.io/guacamole/guacd:(?<currentValue>[-0-9\\.a-z]+)"
+      ],
+      "datasourceTemplate": "docker",
+      "depNameTemplate": "guacamole/guacd"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/build-images.sh/"
+      ],
+      "matchStrings": [
         "docker\\.io/postgres:(?<currentValue>[-0-9\\.a-z]+)"
       ],
       "datasourceTemplate": "docker",
