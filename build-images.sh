@@ -45,7 +45,7 @@ buildah config --entrypoint=/ \
     --label="org.nethserver.authorizations=traefik@node:routeadm cluster:accountconsumer" \
     --label="org.nethserver.tcp-ports-demand=1" \
     --label="org.nethserver.rootfull=0" \
-    --label="org.nethserver.images=docker.io/library/postgres:15.5-alpine3.19 docker.io/guacamole/guacamole:1.6.0 docker.io/guacamole/guacd:1.5.5" \
+    --label="org.nethserver.images=docker.io/library/postgres:15.5-alpine3.19 docker.io/guacamole/guacamole:1.6.0 docker.io/guacamole/guacd:1.6.0" \
     "${container}"
 
 # Commit the image
