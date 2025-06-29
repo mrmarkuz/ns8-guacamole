@@ -18,7 +18,10 @@ ExecStartPre=/bin/rm -f %t/postgresql-app.pid %t/postgresql-app.ctr-id
 ExecStartPre=/bin/mkdir -p %S/state/restore/
 # The database init script is created by guacamole container and dropped to restore to initialise the db
 # Use /bin/sh -c if redirect output is needed 
+# DB init
 ExecStartPre=/bin/sh -c '/usr/bin/podman run --rm docker.io/guacamole/guacamole:1.6.0 /opt/guacamole/bin/initdb.sh --postgresql>%S/state/restore/initdb.sql'
+# DB Upgrade
+ExecStartPre=/bin/sh -c '/usr/bin/podman run --rm docker.io/guacamole/guacamole:1.6.0 cat /opt/guacamole/extensions/guacamole-auth-jdbc/postgresql/schema/upgrade/upgrade-pre-1.6.0.sql>%S/state/restore/upgrade.sql'
 ExecStart=/usr/bin/podman run --conmon-pidfile %t/postgresql-app.pid \
     --cidfile %t/postgresql-app.ctr-id --cgroups=no-conmon \
     --pod-id-file %t/guacamole.pod-id --replace -d --name postgresql-app \
