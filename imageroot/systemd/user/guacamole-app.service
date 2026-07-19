@@ -10,9 +10,9 @@ After=guacamole.service postgresql-app.service guacd-app.service
 
 [Service]
 Environment=PODMAN_SYSTEMD_UNIT=%n
-EnvironmentFile=%S/state/environment
-EnvironmentFile=-%S/state/smarthost.env
-WorkingDirectory=%S/state
+EnvironmentFile=%E/state/environment
+EnvironmentFile=-%E/state/smarthost.env
+WorkingDirectory=%E/state
 Restart=always
 TimeoutStopSec=70
 ExecStartPre=/bin/rm -f %t/guacamole-app.pid %t/guacamole-app.ctr-id
@@ -20,8 +20,7 @@ ExecStartPre=-runagent discover-smarthost
 ExecStart=/usr/bin/podman run --conmon-pidfile %t/guacamole-app.pid \
     --cidfile %t/guacamole-app.ctr-id --cgroups=no-conmon \
     --pod-id-file %t/guacamole.pod-id --replace -d --name  guacamole-app \
-    --env-file=%S/state/environment \
-    --volume guacamole-data:/home/guacamole:Z \
+    --env-file=%E/state/environment \
     --env POSTGRESQL_USER=postgres \
     --env POSTGRESQL_PASSWORD=guacamole \
     --env POSTGRESQL_DATABASE=guacamole \
@@ -30,7 +29,6 @@ ExecStart=/usr/bin/podman run --conmon-pidfile %t/guacamole-app.pid \
     --env REMOTE_IP_VALVE_ENABLED=true \
     --env WEBAPP_CONTEXT=ROOT \
     ${GUACAMOLE_IMAGE}
-ExecStartPost=/usr/bin/podman cp %S/branding/branding.jar guacamole-app:/home/guacamole/.guacamole/extensions/
 ExecStop=/usr/bin/podman stop --ignore --cidfile %t/guacamole-app.ctr-id -t 10
 ExecReload=/usr/bin/podman kill -s HUP guacamole-app
 SyslogIdentifier=%u

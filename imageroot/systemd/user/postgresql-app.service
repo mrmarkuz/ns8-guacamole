@@ -10,24 +10,24 @@ After=guacamole.service
 
 [Service]
 Environment=PODMAN_SYSTEMD_UNIT=%n
-EnvironmentFile=%S/state/environment
-# EnvironmentFile=%S/state/secrets/passwords.secret
+EnvironmentFile=%E/state/environment
+# EnvironmentFile=%E/state/secrets/passwords.secret
 Restart=always
 TimeoutStopSec=70
 ExecStartPre=/bin/rm -f %t/postgresql-app.pid %t/postgresql-app.ctr-id
-ExecStartPre=/bin/mkdir -p %S/state/restore/
+ExecStartPre=/bin/mkdir -p %E/state/restore/
 # The database init script is created by guacamole container and dropped to restore to initialise the db
 # Use /bin/sh -c if redirect output is needed 
 # DB init
-ExecStartPre=/bin/sh -c '/usr/bin/podman run --rm docker.io/guacamole/guacamole:1.6.0 /opt/guacamole/bin/initdb.sh --postgresql>%S/state/restore/initdb.sql'
+ExecStartPre=/bin/sh -c '/usr/bin/podman run --rm docker.io/guacamole/guacamole:1.6.0 /opt/guacamole/bin/initdb.sh --postgresql>%E/state/restore/initdb.sql'
 # DB Upgrade
-ExecStartPre=/bin/sh -c '/usr/bin/podman run --rm docker.io/guacamole/guacamole:1.6.0 cat /opt/guacamole/extensions/guacamole-auth-jdbc/postgresql/schema/upgrade/upgrade-pre-1.6.0.sql>%S/state/restore/upgrade.sql'
+ExecStartPre=/bin/sh -c '/usr/bin/podman run --rm docker.io/guacamole/guacamole:1.6.0 cat /opt/guacamole/extensions/guacamole-auth-jdbc/postgresql/schema/upgrade/upgrade-pre-1.6.0.sql>%E/state/restore/upgrade.sql'
 ExecStart=/usr/bin/podman run --conmon-pidfile %t/postgresql-app.pid \
     --cidfile %t/postgresql-app.ctr-id --cgroups=no-conmon \
     --pod-id-file %t/guacamole.pod-id --replace -d --name postgresql-app \
-    --env-file=%S/state/environment \
+    --env-file=%E/state/environment \
     --volume postgres-data:/var/lib/postgresql/data:Z \
-    --volume %S/state/restore/:/docker-entrypoint-initdb.d/:Z \
+    --volume %E/state/restore/:/docker-entrypoint-initdb.d/:Z \
     --env POSTGRES_USER=postgres \
     --env POSTGRES_PASSWORD=guacamole \
     --env POSTGRES_DB=guacamole \
