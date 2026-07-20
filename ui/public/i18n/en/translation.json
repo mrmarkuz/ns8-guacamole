@@ -19,28 +19,26 @@
     "no_services": "No services",
     "no_images": "No images",
     "no_volumes": "No volumes",
-    "guacamole_webapp":"Guacamole Remote Gateway",
-    "not_configured":"Guacamole is not configured",
-    "configure":"Configure Guacamole",
-    "open_webapp":"Open Guacamole"
+    "guacamole_webapp": "guacamole webapp",
+    "not_configured": "Not configured",
+    "open_webapp": "Open guacamole",
+    "configure": "Configure"
   },
   "settings": {
-    "test_field": "Testfield",
     "title": "Settings",
     "configure_instance": "Configure {instance}",
     "save": "Save",
-    "guacamole_fqdn": "Guacamole Hostname (FQDN)",
+    "guacamole_fqdn": "guacamole hostname (FQDN)",
     "lets_encrypt": "Request LE Certificate",
     "http_to_https": "Force HTTPS",
-    "ldap_domain": "LDAP/AD Domain",
     "enabled": "Enabled",
     "disabled": "Disabled",
     "advanced": "Advanced",
     "configuring": "Configuring",
-    "instance_configuration": "Configure Guacamole",
+    "instance_configuration": "Configure guacamole",
     "domain_already_used_in_traefik": "Domain already used in traefik",
-    "choose_the_ldap_domain_to_use": "Choose the optional LDAP domain to use for Guacamole",
-    "choose_ldap_domain": "Choose LDAP/AD Domain or leave empty"
+    "host_pattern": "Must be a valid fully qualified domain name",
+    "host_format": "Must be a valid fully qualified domain name"
   },
   "about": {
     "title": "About"
@@ -68,6 +66,7 @@
     "403": "Operation not authorized",
     "404": "Resource not found",
     "cannot_retrieve_module_info": "Cannot retrieve module info",
-    "cannot_retrieve_installed_modules": "Cannot retrieve installed modules"
+    "cannot_retrieve_installed_modules": "Cannot retrieve installed modules",
+    "cannot_retrieve_configuration": "Cannot retrieve configuration"
   }
 }
