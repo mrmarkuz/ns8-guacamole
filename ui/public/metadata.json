@@ -1,8 +1,11 @@
 {
   "name": "Guacamole",
   "description": {
-    "en": "Guacamole is a clientless remote desktop gateway",
-    "de": "Guacamole ist ein webbasierter Remote Desktop Gateway"
+    "en": "Guacamole is a clientless remote desktop gateway that supports standard protocols like VNC, RDP, and SSH",
+    "de": "Guacamole ist ein clientloses Remote-Desktop-Gateway, das Standardprotokolle wie VNC, RDP und SSH unterstützt",
+    "fr": "Guacamole est une passerelle d'accès à distance sans client qui prend en charge des protocoles standard tels que VNC, RDP et SSH",
+    "it": "Guacamole è un gateway per desktop remoto senza client che supporta protocolli standard come VNC, RDP e SSH",
+    "es": "Guacamole es una puerta de enlace de escritorio remoto sin cliente que admite protocolos estándar como VNC, RDP y SSH"
   },
   "categories": ["system_administration"],
   "authors": [
@@ -12,7 +15,7 @@
     }
   ],
   "docs": {
-    "documentation_url": "https://guacamole.apache.org/doc/gug/",
+    "documentation_url": "https://guacamole.apache.org/doc/gug",
     "bug_url": "https://community.nethserver.org",
     "code_url": "https://github.com/mrmarkuz/ns8-guacamole"
   },
