@@ -15,6 +15,13 @@ from agent.ldapproxy import Ldapproxy
 # If parsing fails, output everything to stderr
 data = json.load(sys.stdin)
 
+# Setup default values
+host = data.get("host")
+h2hs = data.get("http2https", True)
+
+agent.set_env("TRAEFIK_HOST", host)
+agent.set_env("TRAEFIK_HTTP2HTTPS", h2hs)
+
 # Get LDAP domain
 ldap_domain = data.get("ldap_domain", "")
 
