@@ -9,9 +9,13 @@ set -e
 # Redirect any output to the journal (stderr)
 exec 1>&2
 
+# Copy branding
+mkdir -p extensions
+cp -u ../branding/branding.jar extensions/
+
 # If the control reaches this step, the service can be enabled and started
 
-touch smarthost.env
+touch smarthost.env guacamole.env
 
 systemctl --user enable guacamole.service
 systemctl --user restart guacamole.service
