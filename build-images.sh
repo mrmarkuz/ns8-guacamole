@@ -24,7 +24,7 @@ container=$(buildah from scratch)
 if ! buildah containers --format "{{.ContainerName}}" | grep -q nodebuilder-guacamole; then
     echo "Pulling NodeJS runtime..."
     buildah from --name nodebuilder-guacamole -v "${PWD}:/usr/src:Z" docker.io/library/node:26.13.0-slim
-    buildah run nodebuilder-discourse sh -c "npm install -g corepack@${corepack_version} && corepack enable"
+    buildah run nodebuilder-guacamole sh -c "npm install -g corepack@${corepack_version} && corepack enable"
 fi
 
 echo "Build static UI files with node..."
