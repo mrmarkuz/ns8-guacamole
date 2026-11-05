@@ -21,6 +21,7 @@ ExecStart=/usr/bin/podman run --conmon-pidfile %t/guacamole-app.pid \
     --cidfile %t/guacamole-app.ctr-id --cgroups=no-conmon \
     --pod-id-file %t/guacamole.pod-id --replace -d --name  guacamole-app \
     --env-file=%E/state/guacamole.env \
+    --env-file=%E/state/ldap.env \
     --env POSTGRESQL_USERNAME=postgres \
     --env POSTGRESQL_PASSWORD=guacamole \
     --env POSTGRESQL_DATABASE=guacamole \

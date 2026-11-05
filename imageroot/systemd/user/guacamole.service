@@ -18,6 +18,7 @@ Environment=PODMAN_SYSTEMD_UNIT=%n
 EnvironmentFile=-%E/state/environment
 Restart=always
 TimeoutStopSec=70
+ExecStartPre=/usr/local/bin/runagent discover-ldap
 ExecStartPre=/bin/rm -f %t/guacamole.pid %t/guacamole.pod-id
 ExecStartPre=/usr/bin/podman pod create --infra-conmon-pidfile %t/guacamole.pid \
     --pod-id-file %t/guacamole.pod-id \
