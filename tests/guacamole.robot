@@ -10,14 +10,30 @@ Check if guacamole is installed correctly
     Set Suite Variable    ${module_id}    ${output.module_id}
 
 Check if guacamole can be configured
-    ${rc} =    Execute Command    api-cli run module/${module_id}/configure-module --data '{}'
+    ${rc} =    Execute Command    api-cli run module/${module_id}/configure-module --data '{"host":"guacamole.test.local","http2https": true,"lets_encrypt": false, "ldap_domain": "domain.com"}'
     ...    return_rc=True  return_stdout=False
     Should Be Equal As Integers    ${rc}  0
 
 Check if guacamole works as expected
-    ${rc} =    Execute Command    curl -f http://127.0.0.1/guacamole/
+    ${rc} =    Execute Command    sleep 10 && curl -H "Host: guacamole.test.local" -fkL https://127.0.0.1/
     ...    return_rc=True  return_stdout=False
     Should Be Equal As Integers    ${rc}  0
+
+Take screenshots
+    [Tags]    ui
+    Import Library    Browser
+    New Browser    chromium    headless=True
+    New Context    ignoreHTTPSErrors=True
+    Login to cluster-admin
+    Go To    https://${NODE_ADDR}/cluster-admin/#/apps/${module_id}
+    Wait For Elements State    iframe >>> h2 >> text="Status"    visible    timeout=10s
+    Sleep    5s
+    Take Screenshot    filename=${OUTPUT DIR}/browser/screenshot/1._Status.png
+    Go To    https://${NODE_ADDR}/cluster-admin/#/apps/${module_id}?page=settings
+    Wait For Elements State    iframe >>> h2 >> text="Settings"    visible    timeout=10s
+    Sleep    5s
+    Take Screenshot    filename=${OUTPUT DIR}/browser/screenshot/2._Settings.png
+    Close Browser
 
 Check if guacamole is removed correctly
     ${rc} =    Execute Command    remove-module --no-preserve ${module_id}
