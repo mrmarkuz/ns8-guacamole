@@ -12,4 +12,11 @@ set -e
 # Redirect any output to the journal (stderr)
 exec 1>&2
 
+# Create new env files
+touch ldap.env guacamole.env
+
+# Copy branding
+mkdir -p extensions
+cp -u ../branding/branding.jar extensions/
+
 systemctl --user try-restart guacamole.service
