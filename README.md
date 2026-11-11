@@ -44,8 +44,10 @@ Add "TOTP_ENABLED=true" to the `environment` file:
 
 ## Branding
 
-The branding.jar file can be found in `/home/guacamole1/.config/branding/branding.jar`.
-See https://github.com/Zer0CoolX/guacamole-customize-loginscreen-extension for more information about customizing.
+The branding.jar file can be found in `/home/guacamole1/.config/state/extensions/branding.jar`.
+There are some projects that help to create the branding.jar file:
+ - https://github.com/l4rm4nd/Guacamole-Custom-Login
+ - https://github.com/Zer0CoolX/guacamole-customize-loginscreen-extension
 
 After editing the file, Guacamole needs to be restarted:
 
