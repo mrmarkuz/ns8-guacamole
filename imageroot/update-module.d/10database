@@ -9,5 +9,8 @@ set -e
 # Redirect any output to the journal (stderr)
 exec 1>&2
 
+# Remove old DB files
+rm -f restore/initdb.sql
+
 # Create DB Upgrade file
 /usr/bin/podman run --rm docker.io/guacamole/guacamole:1.6.0 cat /opt/guacamole/extensions/guacamole-auth-jdbc/postgresql/schema/upgrade/upgrade-pre-1.6.0.sql>restore/guacamole.sql
