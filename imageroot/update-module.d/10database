@@ -1,0 +1,13 @@
+#!/bin/bash
+
+#
+# Copyright (C) 2023 Nethesis S.r.l.
+# SPDX-License-Identifier: GPL-3.0-or-later
+#
+set -e
+
+# Redirect any output to the journal (stderr)
+exec 1>&2
+
+# Create DB Upgrade file
+/usr/bin/podman run --rm docker.io/guacamole/guacamole:1.6.0 cat /opt/guacamole/extensions/guacamole-auth-jdbc/postgresql/schema/upgrade/upgrade-pre-1.6.0.sql>restore/guacamole.sql

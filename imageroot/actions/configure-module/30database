@@ -1,0 +1,14 @@
+#!/bin/bash
+
+#
+# Copyright (C) 2023 Nethesis S.r.l.
+# SPDX-License-Identifier: GPL-3.0-or-later
+#
+set -e
+
+# Redirect any output to the journal (stderr)
+exec 1>&2
+
+# Create DB init file
+mkdir -p restore
+/usr/bin/podman run --rm docker.io/guacamole/guacamole:1.6.0 /opt/guacamole/bin/initdb.sh --postgresql>restore/guacamole.sql
