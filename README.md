@@ -49,7 +49,7 @@ There are some projects that help to create the branding.jar file:
  - https://github.com/l4rm4nd/Guacamole-Custom-Login
  - https://github.com/Zer0CoolX/guacamole-customize-loginscreen-extension
 
-After editing the file, Guacamole needs to be restarted:
+After changing the file, Guacamole needs to be restarted:
 
     runagent -m guacamole1 systemctl --user restart guacamole
 
@@ -58,10 +58,6 @@ After editing the file, Guacamole needs to be restarted:
 More extensions and environment variables can be found here:
 
 https://guacamole.apache.org/doc/gug/guacamole-docker.html#the-guacamole-docker-image
-
-## Crowdsec
-
-Guacamole is secured by crowdsec by default.
 
 ## Uninstall
 
