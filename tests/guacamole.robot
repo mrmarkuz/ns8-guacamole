@@ -1,5 +1,19 @@
 *** Settings ***
 Library    SSHLibrary
+Resource    api.resource
+
+*** Variables ***
+${ADMIN_USER}    admin
+${ADMIN_PASSWORD}    Nethesis,1234
+
+*** Keywords ***
+Login to cluster-admin
+    New Page    https://${NODE_ADDR}/cluster-admin/
+    Fill Text    text="Username"    ${ADMIN_USER}
+    Click    button >> text="Continue"
+    Fill Text    text="Password"    ${ADMIN_PASSWORD}
+    Click    button >> text="Log in"
+    Wait For Elements State    css=#main-content    visible    timeout=10s
 
 *** Test Cases ***
 Check if guacamole is installed correctly
