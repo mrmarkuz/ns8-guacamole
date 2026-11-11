@@ -37,25 +37,19 @@ except:
 tmpfile = "discover.env." + str(os.getpid())
 
 with open(tmpfile, "w") as denv:
-    print('GUACAMOLE_LDAP_PORT=' + str(odom['port']), file=denv)
-    print('GUACAMOLE_LDAP_USER=' + odom['bind_dn'], file=denv)
-    print('GUACAMOLE_LDAP_HOST=' + odom['host'], file=denv)
-    print('GUACAMOLE_LDAP_PASS=' + odom['bind_password'], file=denv)
-    print('GUACAMOLE_LDAP_SCHEMA=' + odom['schema'], file=denv)
-    print('GUACAMOLE_LDAP_BASE=' + odom['base_dn'], file=denv)
-    # NEW Write to env file
+    # Generic LDAP settings
     print('LDAP_HOSTNAME=10.0.2.2', file=denv)
-    print('LDAP_PORT=' + odom['port'], file=denv)
+    print('LDAP_PORT=' + str(odom['port']), file=denv)
     print('LDAP_SEARCH_BIND_DN=' + odom['bind_dn'], file=denv)
     print('LDAP_SEARCH_BIND_PASSWORD=' + odom['bind_password'], file=denv)
     if odom['schema'] == "rfc2307":
-        # OpenLDAP specific:
+        # OpenLDAP specific
         print('LDAP_USER_BASE_DN=ou=People,' + odom['base_dn'], file=denv)
         print('LDAP_MEMBER_ATTRIBUTE=memberUid', file=denv)
         print('LDAP_MEMBER_ATTRIBUTE_TYPE=uid', file=denv)
         print('LDAP_GROUP_BASE_DN=ou=Groups,' + odom['base_dn'], file=denv)
     if odom['schema'] == "ad":
-        # Samba AD specific:
+        # Samba AD specific
         print('LDAP_USER_BASE_DN=cn=Users,' + odom['base_dn'], file=denv)
         print('LDAP_GROUP_BASE_DN=cn=Users,' + odom['base_dn'], file=denv)
         print('LDAP_USERNAME_ATTRIBUTE=samaccountname', file=denv)
