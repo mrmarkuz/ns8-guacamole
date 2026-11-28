@@ -1,28 +1,48 @@
-name: Test module
-# The run belongs to the default branch under workflow_run: name the tested one.
-run-name: "Test ${{ github.event.workflow_run.head_branch || github.ref_name }} on QEMU"
+name: Test UI build for Renovate PRs
 
 on:
-  workflow_dispatch:
-    inputs:
-      debug_shell:
-        description: "Debug shell"
-        required: true
-        type: boolean
-  workflow_run:
-    workflows: ["Publish images"]
-    types: [completed]
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  run:
-    name: "Run tests"
-    permissions:
-      contents: write
-      pull-requests: write
-      statuses: write
-    uses: NethServer/ns8-github-actions/.github/workflows/test-module-qemu.yml@v1
-    with:
-      ui_tests_strategy: on_renovate_ui_change
-      debug_shell: ${{ github.event.inputs.debug_shell == 'true' }}
-      # Other inputs: https://github.com/NethServer/ns8-github-actions/blob/v1/docs/test-module-qemu.md#inputs
-      
+  build:
+    runs-on: ubuntu-latest
+
+    # Only run if the PR head branch starts with 'renovate-'
+    if: startsWith(github.head_ref, 'renovate-')
+
+    env:
+      NODE_OPTIONS: --openssl-legacy-provider
+      # renovate: datasource=npm packageName=corepack
+      COREPACK_VERSION: 0.36.0
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Enable Corepack
+        run: npm install -g corepack@${COREPACK_VERSION} && corepack enable
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: "26"
+          cache: "yarn"
+          cache-dependency-path: "ui/yarn.lock"
+
+      - name: Check Node Version
+        run: node --version
+        working-directory: ./ui
+
+      - name: Check Yarn Version
+        run: yarn --version
+        working-directory: ./ui
+
+      - name: Install dependencies
+        run: yarn install --immutable
+        working-directory: ./ui
+
+      - name: Build application
+        run: yarn build
+        working-directory: ./ui
