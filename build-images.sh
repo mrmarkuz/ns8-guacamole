@@ -43,7 +43,7 @@ buildah config --entrypoint=/ \
     --label="org.nethserver.tcp-ports-demand=1" \
     --label="org.nethserver.rootfull=0" \
 	--label="org.nethserver.min-core=3.20.1" \
-    --label="org.nethserver.images=docker.io/library/postgres:15.19-alpine docker.io/guacamole/guacamole:1.6.0 docker.io/guacamole/guacd:1.6.0" \
+    --label="org.nethserver.images=docker.io/library/postgres:19.0-alpine docker.io/guacamole/guacamole:1.6.0 docker.io/guacamole/guacd:1.6.0" \
     "${container}"
 
 # Commit the image
